@@ -1,0 +1,10 @@
+bin
+develop-eggs
+eggs
+include
+lib
+parts
+*.egg-info
+*.pyc
+*.pyo
+.*.sw*
