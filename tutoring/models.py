@@ -26,6 +26,7 @@ class Course(models.Model):
     title = models.CharField(
             max_length=255,
             help_text="Example: Introduction to Biology",
+            unique=True
             )
 
     def __unicode__(self):
