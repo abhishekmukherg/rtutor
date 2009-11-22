@@ -1,3 +1,4 @@
+import django.contrib.auth.models
 from django.contrib import admin
 from django.db import models
 
@@ -38,6 +39,7 @@ class CourseListing(models.Model):
     course = models.ForeignKey(Course)
     course_code = models.PositiveIntegerField()
     semester = models.CharField(max_length=2, choices=SEMESTER_CHOICES)
+    year = models.PositiveSmallIntegerField()
 
     def __unicode__(self):
         return u"%s-%d: %s" % (
@@ -47,5 +49,28 @@ class CourseListing(models.Model):
                 )
 
     class Meta:
-        unique_together = (('subject', 'course_code', 'semester'))
+        unique_together = (('subject', 'course_code', 'semester', 'year'))
 
+class HelpRequest(models.Model):
+    course_listing = models.ForeignKey(CourseListing)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_taken = models.DateTimeField(
+            null=True,
+            blank=True
+            )
+    student = models.ForeignKey(django.contrib.auth.models.User,
+            related_name='help_requests')
+    teacher = models.ForeignKey(django.contrib.auth.models.User,
+            related_name='replied_requests',
+            null=True,
+            blank=True,
+            )
+
+    def __unicode__(self):
+        out = u"%s asking for help on %s" % (self.student, self.course_listing)
+        if self.teacher is not None:
+            out += u" (taken by %s)" % self.teacher
+        return out
+
+    class Meta:
+        unique_together = (('teacher', 'student'))
