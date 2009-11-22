@@ -1,0 +1,2 @@
+
+from rtutor.settings import *
