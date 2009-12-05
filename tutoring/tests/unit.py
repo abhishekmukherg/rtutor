@@ -4,6 +4,7 @@ from django.db import IntegrityError
 
 import tutoring.models
 
+
 class SubjectTest(TestCase):
 
     def setUp(self):
@@ -119,6 +120,7 @@ class CourseListingTest(TestCase):
                 year=2010,
                 semester=self.cl.semester,
         )
+
 
 class HelpRequestTest(TestCase):
 
