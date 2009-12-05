@@ -1,6 +1,7 @@
 import django.contrib.auth.models
 from django.contrib import admin
 from django.db import models
+from django.db import IntegrityError
 
 SEMESTER_CHOICES = (
         ('FA', 'Fall'),
@@ -9,6 +10,7 @@ SEMESTER_CHOICES = (
 )
 
 class Subject(models.Model):
+
     code = models.CharField(
             max_length=4,
             primary_key=True,
@@ -23,7 +25,9 @@ class Subject(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
+
 class Course(models.Model):
+
     title = models.CharField(
             max_length=255,
             help_text="Example: Introduction to Biology",
@@ -32,6 +36,7 @@ class Course(models.Model):
 
     def __unicode__(self):
         return unicode(self.title)
+
 
 class CourseListing(models.Model):
     '''The actual course numbering, i.e. CSCI-1100'''
@@ -51,6 +56,7 @@ class CourseListing(models.Model):
     class Meta:
         unique_together = (('subject', 'course_code', 'semester', 'year'))
 
+
 class HelpRequest(models.Model):
     course_listing = models.ForeignKey(CourseListing)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -66,11 +72,13 @@ class HelpRequest(models.Model):
             blank=True,
             )
 
+    def save(self, *args, **kwargs):
+        if self.student == self.teacher:
+            raise IntegrityError
+        return super(HelpRequest, self).save(*args, **kwargs)
+
     def __unicode__(self):
         out = u"%s asking for help on %s" % (self.student, self.course_listing)
         if self.teacher is not None:
             out += u" (taken by %s)" % self.teacher
         return out
-
-    class Meta:
-        unique_together = (('teacher', 'student'))
