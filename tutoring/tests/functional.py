@@ -9,6 +9,10 @@ import tutoring.models
 
 class ScrapeTest(TestCase):
 
+    def __init__(self, *args, **kwargs):
+        super(ScrapeTest, self).__init__(*args, **kwargs)
+        self.url = reverse('tutoring.views.scrape')
+
     def setUp(self):
         self.client = Client()
 
@@ -25,24 +29,30 @@ class ScrapeTest(TestCase):
         self.superuser.save()
 
     def test_unauthenticated_get_form(self):
-        url = reverse('tutoring.views.scrape')
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         self.assertRedirects(response,
-                settings.LOGIN_URL + '?next=' + url,
+                settings.LOGIN_URL + '?next=' + self.url,
                 status_code=302)
 
     def test_authenticated_get_form(self):
         self.assert_(self.client.login(username='foo', password='foo'))
-        url = reverse('tutoring.views.scrape')
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.client.logout()
 
     def test_superuser_authenticated_get_form(self):
         self.assert_(self.client.login(username='bar', password='foo'))
-        url = reverse('tutoring.views.scrape')
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.client.logout()
 
+    def test_superuser_bad_url(self):
+        self.assert_(self.client.login(username='bar', password='foo'))
+        response = self.client.post(self.url, {'url': 'hello_world'})
+        self.assertFormError(response, 'form', 'url', u'Enter a valid URL.')
+
+    def test_superuser_bad_url(self):
+        self.assert_(self.client.login(username='bar', password='foo'))
+        response = self.client.post(self.url, {'url': 'hello_world'})
+        self.assertFormError(response, 'form', 'url', u'Enter a valid URL.')
 

@@ -27,6 +27,10 @@ class SubjectTest(TestCase):
                 name='Computer Science',
             )
 
+    def test_unicode(self):
+        csci = tutoring.models.Subject.objects.get(code='CSCI')
+        self.assertEqual(unicode(csci), u'Computer Science')
+
 class CourseTest(TestCase):
 
     def setUp(self):
@@ -39,6 +43,10 @@ class CourseTest(TestCase):
             tutoring.models.Course.objects.create,
             title='Computer Science I',
         )
+
+    def test_unicode(self):
+        csci = tutoring.models.Course.objects.get(title='Computer Science I')
+        self.assertEqual(unicode(csci), u'Computer Science I')
 
 class CourseListingTest(TestCase):
 
@@ -121,6 +129,9 @@ class CourseListingTest(TestCase):
                 semester=self.cl.semester,
         )
 
+    def test_unicode(self):
+        self.assertEqual(unicode(self.cl), u'CSCI-1100: Computer Science I')
+
 
 class HelpRequestTest(TestCase):
 
@@ -159,5 +170,18 @@ class HelpRequestTest(TestCase):
     def test_creation_date_status(self):
         self.assertNotEqual(self.hr.date_created, None)
         self.assertEqual(self.hr.date_taken, None)
+
+    def test_unicode(self):
+        self.assertEqual(unicode(self.hr),
+                u'john asking for help on CSCI-1100: Computer Science I'
+                )
+
+    def test_unicode_with_teacher(self):
+        self.hr.teacher = self.user2
+        self.assertEqual(unicode(self.hr),
+                u'john asking for help on CSCI-1100: Computer Science I '
+                u'(taken by jane)'
+                )
+
 
 

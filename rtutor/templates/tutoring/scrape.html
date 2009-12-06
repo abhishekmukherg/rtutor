@@ -1,0 +1,10 @@
+{% extends "tutoring/base.html" %}
+
+{% block title %}Scraping Class Lists{% endblock %}
+
+{% block content %}
+	<form action="{% url tutoring.views.scrape %}" method="POST">
+		{{ form.as_table }}
+		<input type="submit" value="Submit" />
+	</form>
+{% endblock %}

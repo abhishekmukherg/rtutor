@@ -16,5 +16,6 @@ setup(name="rtutor",
         extras_require={
             'FastCGI': ['flup'],
         },
+        test_suite='rtutor.runtests.runtests',
 )
 
