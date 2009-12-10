@@ -14,7 +14,7 @@ DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/New_York'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -44,8 +44,16 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_cas.middleware.CASMiddleware',
     'django.middleware.doc.XViewMiddleware',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas.backends.CASBackend',
+)
+
+CAS_SERVER_URL = 'https://login.rpi.edu/cas/'
 
 ROOT_URLCONF = 'rtutor.urls'
 
@@ -58,7 +66,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     'django_evolution',
-    'userprofile',
 
     'tutoring',
     'tutorprofile',

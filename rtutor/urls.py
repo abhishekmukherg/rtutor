@@ -9,8 +9,10 @@ handler500 # Pyflakes
 urlpatterns = patterns('',
     (r'^tutoring/', include('tutoring.urls')),
     (r'^admin/(.*)', admin.site.root),
+    (r'^accounts/login/$', 'django_cas.views.login'),
+    (r'^accounts/logout/$', 'django_cas.views.logout'),
 #    (r'^accounts/login/$', 'django.contrib.auth.views.login'),
-    (r'^accounts/', include('userprofile.urls')),
+#    (r'^accounts/', include('userprofile.urls')),
 )
 
 if settings.DEBUG:

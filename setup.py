@@ -11,7 +11,7 @@ setup(name="rtutor",
         packages=find_packages(),
         install_requires=[
             'django',
-            'django-profile',
+            'django_cas',
         ],
         extras_require={
             'FastCGI': ['flup'],
