@@ -1,10 +1,11 @@
+"""
+URLs File
+"""
 
-from django.conf.urls.defaults import patterns, include, handler500
+from django.conf.urls.defaults import patterns, include
 from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
-
-handler500 # Pyflakes
 
 urlpatterns = patterns('',
     (r'^tutoring/', include('tutoring.urls')),
