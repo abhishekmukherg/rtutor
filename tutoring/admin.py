@@ -9,8 +9,6 @@ class CourseAdmin(admin.ModelAdmin):
         CourseListingInline,
     ]
 
-class CourseListingAdmin(admin.ModelAdmin):
-    pass
 
 admin.site.register(tutoring.models.Subject)
 admin.site.register(tutoring.models.Course, CourseAdmin)
