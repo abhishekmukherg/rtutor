@@ -7,6 +7,10 @@ from django.conf import settings
 
 import tutoring.models
 
+
+__all__ = ['ScrapeTest']
+
+
 class ScrapeTest(TestCase):
 
     def __init__(self, *args, **kwargs):

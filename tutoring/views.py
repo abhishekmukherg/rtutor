@@ -1,14 +1,17 @@
+"""
+Views for tutoring
+"""
+
 import tutoring.forms
 
-from django.conf import settings
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import permission_required
 
-def _check_requirements():
-    pass
 
-_check_requirements()
+__all__ = ['scrape']
+
 
 @permission_required(u'tutoring.add_subject')
 @permission_required(u'tutoring.add_course')
@@ -16,10 +19,14 @@ _check_requirements()
 def scrape(request,
         next_page=None,
         template_name='tutoring/scrape.html'):
+    """Scrapes a url
+
+    given the information in the url, it'll fill CourseListing with values
+    """
     if request.method == 'POST':
         form = tutoring.forms.ScrapeForm(request.POST)
         if form.is_valid():
-            return HttpResponseRedirect('/thanks/') # Redirect after POST
+            return HttpResponseRedirect(next_page) # Redirect after POST
     else:
         form = tutoring.forms.ScrapeForm()
 

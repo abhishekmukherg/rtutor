@@ -17,5 +17,8 @@ setup(name="rtutor",
             'FastCGI': ['flup'],
         },
         test_suite='rtutor.runtests.runtests',
+        tests_require=[
+            'django-coverage',
+        ],
 )
 

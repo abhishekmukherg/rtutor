@@ -1,3 +1,9 @@
+"""
+Unit tests for tutoring.
+
+Tests to make sure base model functions are working
+"""
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.db import IntegrityError
@@ -5,7 +11,14 @@ from django.db import IntegrityError
 import tutoring.models
 
 
+__all__ = ['SubjectTest', 'CourseTest', 'CourseListingTest', 'HelpRequestTest']
+
+
 class SubjectTest(TestCase):
+
+    """
+    Tests functionality of Subject class
+    """
 
     def setUp(self):
         tutoring.models.Subject.objects.create(
