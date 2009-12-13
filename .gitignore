@@ -8,3 +8,7 @@ parts
 *.pyc
 *.pyo
 .*.sw*
+.coverage
+.installed.cfg
+.swp
+rtutor.db
