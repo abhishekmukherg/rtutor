@@ -21,12 +21,14 @@ class SubjectTest(TestCase):
     """
 
     def setUp(self):
+        """Creates a Subject for CSCI, Computer Science"""
         tutoring.models.Subject.objects.create(
                 code='CSCI',
                 name='Computer Science',
                 )
 
     def test_unique_code(self):
+        """Tests to make sure the code must be unique"""
         self.assertRaises(IntegrityError,
             tutoring.models.Subject.objects.create,
             code='CSCI',
