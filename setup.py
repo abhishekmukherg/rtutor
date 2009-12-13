@@ -12,13 +12,14 @@ setup(name="rtutor",
         install_requires=[
             'django',
             'django_cas',
+            'django-evolution',
         ],
         extras_require={
             'FastCGI': ['flup'],
         },
-        test_suite='rtutor.runtests.runtests',
-        tests_require=[
-            'django-coverage',
+        dependency_links = [
+            'http://django-evolution.googlecode.com/svn/trunk/',
         ],
+        test_suite='rtutor.runtests.runtests',
 )
 
