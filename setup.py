@@ -39,6 +39,10 @@ setup(name="rtutor",
             'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         ],
         packages=find_packages(),
+        entry_points = {
+            'console_scripts':
+                'rtutor = django.core.management:execute_from_command_line',
+        },
         install_requires=[
             'django',
             'django_cas',
