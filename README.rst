@@ -11,12 +11,17 @@ Setting up development environment
 
 There are a few ways you can do this. I personally use buildout and virtualenv:
 
+Dependencies
+------------
+
 Either way. you will need django-evolution::
 
   cd /tmp
   svn co http://django-evolution.googlecode.com/svn/trunk django-evolution
   easy_install /tmp/django-evolution
 
+Setup environment
+-----------------
 
 buildout::
 
